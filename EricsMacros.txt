@@ -1,0 +1,336 @@
+Sub teamCondition()
+'
+' teamCondition Macro
+' Created by Eric Greenhalgh 4/18/2018
+
+'
+    Selection.FormatConditions.Add Type:=xlTextString, String:="Cameron", _
+        TextOperator:=xlContains
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent1
+        .TintAndShade = 0.599963377788629
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlTextString, String:="Kaeden", _
+        TextOperator:=xlContains
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent2
+        .TintAndShade = 0.599963377788629
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlTextString, String:="Isaac", _
+        TextOperator:=xlContains
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent4
+        .TintAndShade = 0.599963377788629
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlTextString, String:="Dressman", _
+        TextOperator:=xlContains
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent6
+        .TintAndShade = 0.599963377788629
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+End Sub
+
+Sub TysonsMacro()
+
+Dim findme
+Dim intnum
+Dim indirect1
+Dim indirect2
+Dim indirect3
+Dim indirect4
+Dim indirect5
+Dim indirect6
+Dim indirect7
+Dim indirect8
+Dim myequal
+Dim mycol
+Dim startdate
+Dim enddate
+Dim rampupoffset
+Dim endNMI
+
+intnum = 2
+
+Do
+If Worksheets(1).Range("a" & intnum).Value = "" Then
+intnum = intnum + 1
+
+Else
+    rampupoffset = intnum - 3
+        Exit Do
+End If
+Loop
+
+
+Do
+If Worksheets(1).Range("a" & intnum).Interior.ColorIndex <> -4142 Then
+intnum = intnum + 1
+endNMI = endNMI + 1
+Else
+    
+        Exit Do
+End If
+Loop
+
+
+intnum = 1
+If Worksheets(1).Range("b2").Value = "Service Cycle" Then
+Do
+findme = Worksheets(1).Range("b2").Offset(0, intnum).Value
+If findme = "" Then
+intnum = intnum + 1
+Else
+startdate = Left(findme, 8)
+enddate = Right(findme, 8)
+Exit Do
+End If
+Loop
+End If
+intnum = 1
+Do
+findme = Worksheets(1).Range("a1").Offset(0, intnum).Value
+If findme = "" Then
+findme = Worksheets(1).Range("a1").Offset(0, intnum).Address
+
+
+
+
+indirect1 = Worksheets(1).Range(findme).Offset(0, 3).Address
+indirect2 = Worksheets(1).Range(findme).Offset(0, 4).Address
+indirect3 = Worksheets(1).Range(findme).Offset(0, 5).Address
+indirect4 = Worksheets(1).Range(findme).Offset(0, 6).Address
+indirect5 = Worksheets(1).Range(findme).Offset(0, 7).Address
+indirect6 = Worksheets(1).Range(findme).Offset(0, 8).Address
+indirect7 = Worksheets(1).Range(findme).Offset(2, 4).Address
+indirect8 = Worksheets(1).Range(findme).Offset(2, 5).Address
+
+
+
+
+
+myequal = Worksheets(1).Range(findme).Offset(2, 0).Address(False, False)
+Worksheets(1).Range(findme).Value = "=(" & indirect4 & "-" & indirect3 & "+1)"
+Worksheets(1).Range(findme).Offset(0, 1).Value = "=countblank(indirect(" & indirect1 & "):indirect(" & indirect2 & "))"
+Worksheets(1).Range(findme).Offset(0, 2).Value = "=sum(indirect(" & indirect1 & "):indirect(" & indirect2 & "))/(countblank(indirect(" & indirect1 & "):indirect(" & indirect2 & "))+count(indirect(" & indirect1 & "):indirect(" & indirect2 & ")))"
+Worksheets(1).Range(findme).Offset(0, 5).Value = startdate
+Worksheets(1).Range(findme).Offset(0, 6).Value = enddate
+
+For inti = 0 To endNMI - 1
+
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 0).Value = "=round(indirect(" & indirect1 & ")/" & findme & "*(" & indirect4 & "-e" & 3 + rampupoffset + inti & "+1),2)"
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 1).Value = "=indirect(ADDRESS(ROW(),COLUMN(INDIRECT(" & indirect1 & "))))=" & Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 0).Address
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 2).Value = "=indirect(ADDRESS(ROW(),COLUMN(INDIRECT(" & indirect1 & "))))-" & Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 0).Address
+
+
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 4).Value = "=vlookup(indirect(address(row(),column(indirect(" & indirect5 & ")))),indirect(" & indirect5 & "):indirect(" & indirect6 & ") ,(column(indirect(" & indirect6 & "))-column(indirect(" & indirect5 & ")))+1  ,false)"
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 5).Value = "=round(indirect( address(row(),column(" & indirect7 & ")))/" & findme & "*(" & indirect4 & "-e" & 3 + rampupoffset + inti & "+1),2)"
+
+
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 6).Value = "=indirect(ADDRESS(ROW(),COLUMN(" & indirect8 & ")))=indirect(address(row(),column(indirect(" & indirect1 & "))))"
+Worksheets(1).Range(findme).Offset(2 + rampupoffset + inti, 7).Value = "=indirect(ADDRESS(ROW(),COLUMN(" & indirect8 & ")))-indirect(address(row(),column(indirect(" & indirect1 & "))))"
+Next inti
+
+
+
+Exit Do
+Else
+intnum = intnum + 1
+End If
+Loop
+
+
+
+End Sub
+
+Sub FormatMeterInfo()
+'
+' FormatMeterInfo Macro
+' Created by Eric Greenhalgh 4/2018
+
+    Columns("L:L").EntireColumn.AutoFit
+    Columns("M:W").Select
+    Selection.EntireColumn.Hidden = True
+    Columns("L:L").Select
+    Selection.FormatConditions.AddColorScale ColorScaleType:=3
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    Selection.FormatConditions(1).ColorScaleCriteria(1).Type = _
+        xlConditionValueLowestValue
+    With Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor
+        .Color = 7039480
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Type = _
+        xlConditionValuePercentile
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Value = 50
+    With Selection.FormatConditions(1).ColorScaleCriteria(2).FormatColor
+        .Color = 8711167
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(3).Type = _
+        xlConditionValueHighestValue
+    With Selection.FormatConditions(1).ColorScaleCriteria(3).FormatColor
+        .Color = 8109667
+        .TintAndShade = 0
+    End With
+    Columns("X:X").Select
+    Selection.FormatConditions.AddColorScale ColorScaleType:=3
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    Selection.FormatConditions(1).ColorScaleCriteria(1).Type = _
+        xlConditionValueLowestValue
+    With Selection.FormatConditions(1).ColorScaleCriteria(1).FormatColor
+        .Color = 7039480
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Type = _
+        xlConditionValuePercentile
+    Selection.FormatConditions(1).ColorScaleCriteria(2).Value = 50
+    With Selection.FormatConditions(1).ColorScaleCriteria(2).FormatColor
+        .Color = 8711167
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).ColorScaleCriteria(3).Type = _
+        xlConditionValueHighestValue
+    With Selection.FormatConditions(1).ColorScaleCriteria(3).FormatColor
+        .Color = 8109667
+        .TintAndShade = 0
+    End With
+    Columns("J:J").EntireColumn.AutoFit
+    Columns("J:J").Select
+    Selection.FormatConditions.AddUniqueValues
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    Selection.FormatConditions(1).DupeUnique = xlDuplicate
+    With Selection.FormatConditions(1).Font
+        .Color = -16383844
+        .TintAndShade = 0
+    End With
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 13551615
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Range("A1").Select
+End Sub
+
+Sub RowWidth10()
+'
+' RowWidth10 Macro
+' Created by Eric Greenhalgh 4/2018
+
+  Selection.ColumnWidth = 10
+End Sub
+Sub RowHeight12()
+'
+' RowHeight12 Macro
+' Created by Eric Greenhalgh 4/2018
+
+'
+    Cells.Select
+    Range("E7").Activate
+    Selection.RowHeight = 12
+End Sub
+
+Sub FreezeFilter()
+'
+' FreezeFilter Macro
+' Created by Eric Greenhalgh 4/2018
+
+    With ActiveWindow
+        .SplitColumn = 0
+        .SplitRow = 1
+    End With
+    ActiveWindow.FreezePanes = True
+    Rows("1:1").Select
+    Selection.AutoFilter
+End Sub
+Sub phonecalls()
+'
+' phonecalls Macro
+' Created by Eric Greenhalgh 4/2018
+
+    Columns("C:C").Select
+    Selection.Delete Shift:=xlToLeft
+    Range("C2").Select
+    ActiveSheet.Sort.SortFields.Clear
+    ActiveSheet.Sort.SortFields.Add Key:=Range( _
+        "C2"), SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:= _
+        xlSortTextAsNumbers
+    With ActiveSheet.Sort
+        .SetRange Range("A2:M51")
+        .Header = xlNo
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    Rows("2:2").Select
+    Selection.Delete Shift:=xlUp
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = "Average"
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=ROUND(AVERAGE(RC[-11]:R[98]C[-11]),2)"
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=ROUND(AVERAGE(RC[-11]:R[98]C[-11]),0)"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "Adjusted"
+    Range("O2").Select
+    ActiveCell.FormulaR1C1 = "=ROUND(RC[-1]*0.7,0)"
+    Columns("C:C").Select
+    Application.CutCopyMode = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
+        Formula1:="=$O$2"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Font
+        .Color = -16752384
+        .TintAndShade = 0
+    End With
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 13561798
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Application.CutCopyMode = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlLess, _
+        Formula1:="=$O$2"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Font
+        .Color = -16383844
+        .TintAndShade = 0
+    End With
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 13551615
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Application.CutCopyMode = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, _
+        Formula1:="=$O$2"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Font
+        .Color = -16752384
+        .TintAndShade = 0
+    End With
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 13561798
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Range("C1").Select
+    Selection.FormatConditions.Delete
+    Range("P1").Select
+End Sub
