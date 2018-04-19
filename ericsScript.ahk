@@ -11,14 +11,14 @@ SetNumLockState, AlwaysOn 	; Sets NumLock to always be on
 	Send, Eric G{tab}egreenhalgh@conservice.com{tab}{enter}
 Return
 	
-#ifWinActive									;Active under any window
-F6:: winactivate ahk_exe Conservice.exe			;activates Yoda
-F7:: winactivate ahk_exe EXCEL.EXE				;activates excel
-F8:: winactivate ahk_exe FoxitReader.exe		;activates foxit
-F9:: winactivate ahk_exe Explorer.EXE			;Activates Windows Explorer
-!+s:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\Snapshots\2018{enter}			;Alt+shift+S
-!+p:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\Phones\2018{enter}				;Alt+shift+p
-!+q:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\QC Bin\2018{enter}				;Alt+shift+q
+#ifWinActive																	;Active under any window
+F6:: winactivate ahk_exe Conservice.exe				;activates Yoda
+F7:: winactivate ahk_exe EXCEL.EXE						;activates excel
+F8:: winactivate ahk_exe FoxitReader.exe			;activates foxit
+F9:: winactivate ahk_exe Explorer.EXE					;Activates Windows Explorer
+!+s:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\Snapshots\2018{enter}				;Alt+shift+S
+!+p:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\Phones\2018{enter}						;Alt+shift+p
+!+q:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\QC Bin\2018{enter}						;Alt+shift+q
 !+b:: send, U:\User files\Eric Greenhalgh\Team Lead\Trust but Verify\Billing Progress\2018{enter}	;Alt+shift+b
 
 ; General HotStrings
@@ -37,6 +37,7 @@ F9:: winactivate ahk_exe Explorer.EXE			;Activates Windows Explorer
 ::upro::Updated provider for xx
 ::bsru::Updated rampup //methodChange// to MI/LR as of /date/
 ::bsrs::Updated to new rate sheet
+::propcan::Confirmed contract change tracker and documentation.  Residents set to 'Past' and 'No Payment.' Ready for end dates.
 
 ; QC HotStrings
 ;--------------------------------------------
