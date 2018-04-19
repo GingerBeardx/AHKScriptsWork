@@ -23,12 +23,15 @@ global ManagementCompany, PropertyName, WinTitle, PropCode
 
 
 !+y::
+	InputBox, PropCode,, Please enter prop code,, 300,,
 	winactivate ahk_exe Conservice.exe
 	send ^+c			; Opens the community screen
-	send bl80{enter}
+	send %PropCode%{enter}
 return
 
-^!x:: ExitApp
+^!x:: 
+	MsgBox, 0, See Ya, Toodles, 2
+ExitApp
 
 
 ; Ctrl Shift C - Opens community Screen in Yoda
@@ -41,5 +44,3 @@ return
 ; While Community screen open Alt R will open the resident screen
 ; While Community screen open Alt U will open the unit screen
 ; While Community screen open Alt C will put the focus on the code cell
-
-; 
